@@ -1,2 +1,7 @@
-# PDFmerge
-a mini program which can merge .pdf file to one file(contain .py and .exe version)
+# PDF合并小工具
+## 一个可以合并路径下所有pdf文件的小工具（带GUI界面）：  
+## 操作方法：  
+点击“浏览”选择文件夹，点击“确认”开始合并（默认合并结果储存在当前选择的路径）  
+合并成功后会有提示  
+点击“打开文件夹”打开合并结果保存的位置
+
