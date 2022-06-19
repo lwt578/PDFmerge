@@ -54,35 +54,37 @@ while True:
         
 
     elif event == '转换为Word':
-        
-        window['-result-'].update('转换中……')      
 
-        cv = Converter(pdf_file)
-        cv.convert(folderpath + '\\' + filename + '.docx')
-        cv.close()
-        
-        sg.popup('转换成功！文件保存在：' + folderpath + '\\' + filename + '.docx')
-        window['-result-'].update('转换成功')
-        window['打开文件夹'].update(disabled=False)
+        try:    
+            cv = Converter(pdf_file)
+            cv.convert(folderpath + '\\' + filename + '.docx')
+            cv.close()
+            
+            sg.popup('转换成功！文件保存在：' + folderpath + '\\' + filename + '.docx')
+            window['-result-'].update('转换成功')
+            window['打开文件夹'].update(disabled=False)
+        except:
+            sg.popup('转换出错！')
+
     
     elif event == '转换为Excel':
 
-        window['-result-'].update('转换中……')
-
-        workbook = Workbook()
-        sheet = workbook.active
-        with pdfplumber.open(pdf_file) as pdf:
-            for page in pdf.pages:
-                table = page.extract_table()
-                for row in table:
-                    sheet.append(row)
-        workbook.save(filename=folderpath + "\\" + filename + ".xlsx")
+        try:
+            workbook = Workbook()
+            sheet = workbook.active
+            with pdfplumber.open(pdf_file) as pdf:
+                for page in pdf.pages:
+                    table = page.extract_table()
+                    for row in table:
+                        sheet.append(row)
+            workbook.save(filename=folderpath + "\\" + filename + ".xlsx") 
         
-        sg.popup('转换成功！文件保存在：' + folderpath + '\\' + filename + ".xlsx")
-        window['-result-'].update('转换成功')
-        window['打开文件夹'].update(disabled=False)
+            sg.popup('转换成功！文件保存在：' + folderpath + '\\' + filename + ".xlsx")
+            window['-result-'].update('转换成功')
+            window['打开文件夹'].update(disabled=False)
+        except:
+            sg.popup('转换失败！文件必须是纯表格形式')
     
-
 
     elif event == '打开文件夹':
         os.startfile(folderpath)
